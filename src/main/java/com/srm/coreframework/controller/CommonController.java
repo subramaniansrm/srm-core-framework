@@ -100,7 +100,14 @@ public class CommonController<T> {
 	}*/
 
 	public String getMessage(String code, AuthDetailsVo authDetailsVo) {
-		return commonService.getMessage(code, authDetailsVo);
+		String message = "";
+		try {
+			message = commonService.getMessage(code, authDetailsVo);
+		} catch (NullPointerException e) {
+			message=e;
+			
+		}
+		return message;
 	}
 
 	/*public String getMessage(String code, Object args[], AuthDetailsVo authDetailsVo) {
@@ -153,12 +160,25 @@ public class CommonController<T> {
 	 * @return String
 	 */
 	public String getHeaderAccessToken(HttpServletRequest request) {
-		return commonService.getHeaderAccessToken(request);
+		String access = "";
+		try {
+			access = commonService.getHeaderAccessToken(request);
+		} catch (NullPointerException e) {
+			access=e;
+		}
+
+		return access;
 	}
 
 	// Validate token
 	public AuthDetailsVo tokenValidate(String accessToken) {
-		return commonService.tokenValidate(accessToken);
+		AuthDetailsVo authDetailsVo = new AuthDetailsVo();
+		try {
+			authDetailsVo = commonService.tokenValidate(accessToken);
+		} catch (NullPointerException e) {
+
+		}
+		return authDetailsVo;
 	}
 
 	public byte[] imageLoading(String fileName) throws IOException {
